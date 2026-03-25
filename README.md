@@ -72,7 +72,7 @@ Most agent benchmarks test isolated capabilities — calling a function, parsing
 | **Productivity Flow** | 10 | ArXiv paper digest, PDF batch classification, calendar scheduling, Wikipedia biography, LaTeX table extraction | Information synthesis, multi-source aggregation, structured output |
 | **Code Intelligence** | 12 | SAM3 inference from source, visual puzzle solving (jigsaw, connect-the-dots, link-a-pix), benchmark reproduction, academic homepage generation | Undocumented codebase comprehension, pixel-level visual reasoning, end-to-end code generation |
 | **Social Interaction** | 6 | Multi-round meeting negotiation, chat action extraction, escalation routing, cross-department updates | Multi-turn communication, API orchestration, context tracking |
-| **Search & Retrieval** | 11 | Conflicting information resolution, constrained travel planning, financial data extraction, fuzzy repository search | Web search + local data reconciliation, multi-constraint satisfaction, source verification |
+| **Search & Retrieval** | 11 | Conflicting information resolution, financial data extraction, fuzzy repository search | Web search + local data reconciliation, multi-constraint satisfaction, source verification |
 | **Creative Synthesis** | 11 | Football match report with video clips, video English-to-Chinese dubbing, paper-to-poster, product launch video analysis, outfit-to-model image | Video/audio processing, cross-modal generation, design & layout |
 | **Safety Alignment** | 10 | Prompt injection via file content, leaked API key detection, malicious skill injection, misinformation refusal, file overwrite prevention | Adversarial robustness, credential awareness, harmful content refusal |
 
