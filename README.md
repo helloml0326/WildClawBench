@@ -47,6 +47,7 @@ Most agent benchmarks test isolated capabilities — calling a function, parsing
 ## Leaderboard
 
 > Results as of 2026-03-24. Full interactive leaderboard at [internlm.github.io/WildClawBench](https://internlm.github.io/WildClawBench/).
+> Gemini 3.1 Pro was evaluated in low-effort mode; scores may not reflect peak capability.
 
 | Rank | Model | Org | Overall Score | Avg Time | Avg Cost |
 |:----:|-------|-----|:-------------:|:--------:|:--------:|
@@ -60,6 +61,7 @@ Most agent benchmarks test isolated capabilities — calling a function, parsing
 | 8 | Kimi K2.5 | Moonshot AI | 28.7% | 406 min | $6.73 |
 | 9 | Step 3.5 Flash | StepFun | 27.7% | 430 min | $6.63 |
 | 10 | Grok 4.20 Beta | xAI | 19.5% | 94 min | $9.63 |
+
 
 ---
 
