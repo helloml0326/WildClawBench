@@ -90,7 +90,7 @@ def start_container(task_id: str, workspace_path: str, extra_env: str = "",
         else:
             logger.info("[%s] Temp file copy complete", task_id)
 
-def setup_workspace(task_id: str) -> None:
+def setup_workspace(task_id: str, thinking: str | None = None) -> None:
     logger.info("[%s] Copying /app → %s", task_id, TMP_WORKSPACE)
     r = subprocess.run(
         ["docker", "exec", task_id, "/bin/bash", "-c",
@@ -99,6 +99,18 @@ def setup_workspace(task_id: str) -> None:
     )
     if r.returncode != 0:
         raise RuntimeError(f"Workspace copy failed:\n{r.stderr}")
+
+    if thinking is not None:
+        logger.info("[%s] Setting thinkingDefault to %s", task_id, thinking)
+        thinking_result = subprocess.run(
+            ["docker", "exec", task_id,
+             "openclaw", "config", "set", "agents.defaults.thinkingDefault", thinking],
+            capture_output=True, text=True,
+        )
+        if thinking_result.returncode != 0:
+            raise RuntimeError(
+                f"Failed to set thinkingDefault to {thinking}:\n{thinking_result.stderr}"
+            )
 
     # Symlink OpenClaw workspace → TMP_WORKSPACE so the image tool's
     # media-local-roots check allows reading files under /tmp_workspace.

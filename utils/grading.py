@@ -189,27 +189,34 @@ def print_global_summary(results: list[dict], output_dir: Path, model_name: str)
     print(f"  Global Summary Report — ALL CATEGORIES")
     print(f"{'#'*60}")
 
-    all_scores: list[float] = []
+    total_tasks = len(results)
+    scored_tasks = 0
+    missing_score_tasks = 0
+    total_score = 0.0
     for r in results:
-        if r.get("error"):
-            continue
         scores = r.get("scores", {})
-        if not scores or "error" in scores:
+        if r.get("error") or not scores or "error" in scores:
+            missing_score_tasks += 1
             continue
         numeric = {k: v for k, v in scores.items() if isinstance(v, (int, float))}
         if not numeric:
+            missing_score_tasks += 1
             continue
         final = numeric.get("overall_score", sum(numeric.values()) / len(numeric))
-        all_scores.append(final)
+        total_score += final
+        scored_tasks += 1
 
     global_avg = 0.0
-    if all_scores:
-        global_avg = sum(all_scores) / len(all_scores)
+    if total_tasks > 0:
+        global_avg = total_score / total_tasks
         bar = "█" * int(global_avg * 10) + "░" * (10 - int(global_avg * 10))
-        print(f"\n  Completed tasks: {len(all_scores)} / {len(results)}")
+        print(f"\n  Completed tasks: {scored_tasks} / {total_tasks}")
+        print(f"  Tasks without a valid score.json: {missing_score_tasks}")
+        if missing_score_tasks > 0:
+            print("  Possible causes: task execution failed, such as OOM, or grading failed.")
         print(f"  Global average: {bar} {global_avg:.4f}")
     else:
-        print("  No valid scoring data")
+        print("  No tasks found")
 
     total_out_tok = sum(r.get("usage", {}).get("output_tokens", 0) for r in results)
     total_cost    = sum(r.get("usage", {}).get("cost_usd",      0.0) for r in results)
@@ -218,8 +225,10 @@ def print_global_summary(results: list[dict], output_dir: Path, model_name: str)
     summary_path = output_dir / f"summary_all_{model_name}.json"
     summary_path.write_text(
         json.dumps(
-            {"global_avg": global_avg if all_scores else None,
-             "task_count": len(all_scores),
+            {"global_avg": global_avg if total_tasks else None,
+             "task_count": total_tasks,
+             "scored_task_count": scored_tasks,
+             "missing_score_task_count": missing_score_tasks,
              "results": results},
             indent=2, ensure_ascii=False, default=str,
         ),

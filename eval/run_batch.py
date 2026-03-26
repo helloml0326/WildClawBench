@@ -159,7 +159,7 @@ def load_models_config(models_config_path: Path) -> dict:
     return parsed_models_config
 
 
-def run_single_task(task: dict, model: str, lobster: dict | None = None,
+def run_single_task(task: dict, model: str, lobster: dict | None = None, thinking: str | None = None,
                     models_config: dict | None = None) -> dict:
     """
     Execute a single task, returning a {"task_id", "scores", "error"} dict.
@@ -203,7 +203,7 @@ def run_single_task(task: dict, model: str, lobster: dict | None = None,
                         lobster_env=lobster.get("env") if lobster else None)
         if lobster:
             inject_lobster_workspace(task_id, lobster["workspace"])
-        setup_workspace(task_id)
+        setup_workspace(task_id,thinking=thinking)
         setup_skills(task_id, skills, skills_path)
         run_warmup(task_id, task.get("warmup", ""))
         if models_config:
@@ -358,6 +358,11 @@ Examples:
         default=None,
         help="Path to a JSON file that will replace the top-level models field in ~/.openclaw/openclaw.json before each task",
     )
+    parser.add_argument(
+        "--thinking",
+        default=None,
+        help="Thinking/reasoning level for the model (default: high)",
+    )
 
     args = parser.parse_args()
     models_config = None
@@ -397,7 +402,7 @@ Examples:
             sys.exit(1)
         task = parse_task_md(task_file)
         logger.info("Single task mode: %s", task["task_id"])
-        run_single_task(task, args.model, lobster=lobster, models_config=models_config)
+        run_single_task(task, args.model, lobster=lobster, models_config=models_config,thinking=args.thinking)
         return
     if args.category.lower() == "all":
         categories = ALL_CATEGORIES
@@ -434,11 +439,11 @@ Examples:
         results: list[dict] = []
         if args.parallel <= 1:
             for task in tasks:
-                results.append(run_single_task(task, args.model, lobster=lobster, models_config=models_config))
+                results.append(run_single_task(task, args.model, lobster=lobster, models_config=models_config,thinking=args.thinking))
         else:
             with ThreadPoolExecutor(max_workers=args.parallel) as pool:
                 futures = {
-                    pool.submit(run_single_task, task, args.model, lobster, models_config): task["task_id"]
+                    pool.submit(run_single_task, task, args.model, lobster, args.thinking,models_config): task["task_id"]
                     for task in tasks
                 }
                 for future in as_completed(futures):
