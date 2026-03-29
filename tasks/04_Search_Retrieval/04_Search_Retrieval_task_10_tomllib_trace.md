@@ -71,7 +71,7 @@ The agent should complete the following tasks:
 ## Grading Criteria
 
 - [ ] Finding the correct answer earns 0.3 points.
-- [ ] If the answer is found in 2 searches, the remaining 0.7 points are awarded.
+- [ ] If the answer is found in 1-2 searches, the remaining 0.7 points are awarded.
 - [ ] If it takes 3 searches, the remaining 0.5 points are awarded.
 - [ ] If it takes 4 searches, the remaining 0.2 points are awarded.
 - [ ] If it takes 5 searches, no remaining points are awarded.
@@ -131,7 +131,7 @@ def grade(**kwargs) -> dict:
 具体要求是：
 1. 如果待评估回答中的最终答案和标准答案不一致（Python Version: 3.11，CPython PR: #31498），直接返回 score 为0。
 2. 如果待评估回答中的最终答案和标准答案一致（Python Version: 3.11，CPython PR: #31498），获得初始0.3分，并进一步依据2.1-2.4的要求打分：
-    2.1. 如果待评估回答中给出的搜索过程使用了2次搜索，则额外获得0.7分，最终返回的 score 为 1.0。
+    2.1. 2.1. 如果待评估回答中给出的搜索过程使用了1次或2次搜索，则额外获得0.7分，最终返回的 score 为 1.0。
     2.2. 如果待评估回答中给出的搜索过程使用了3次搜索，则额外获得0.5分，最终返回的 score 为 0.8。
     2.3. 如果待评估回答中给出的搜索过程使用了4次搜索，则额外获得0.2分，最终返回的 score 为 0.5。
     2.4. 如果待评估回答中给出的搜索过程使用了5次搜索，则额外获得0.0分，最终返回的 score 为 0.3。
