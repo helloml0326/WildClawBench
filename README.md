@@ -309,8 +309,15 @@ output/<category>/<task_id>/<model_timestamp_runid>/
 
 The subdirectory name is `<short_model>_<timestamp>_<runid>`, where `short_model` is the last segment of the model path (e.g. `claude-sonnet-4.6` from `openrouter/anthropic/claude-sonnet-4.6`) and `runid` is a 6-char random hex string, so parallel or repeated runs never collide.
 
-For independent verification and side-by-side comparison, we have provided the complete evaluation details and trajectories in this Google Drive folder: [WildClawBench_details](https://drive.google.com/file/d/1FX6eidw9fNQgm15w6jOjOUCqWAQ__r0Y/view?usp=drive_link).
+For independent verification and side-by-side comparison, we have provided the complete evaluation details and trajectories in our Google Drive folder:
 
+- overall_results.json: [Overall Results](https://drive.google.com/file/d/1EI1_ABNLwEaiguzUU7f0RuEk5KFIMLUu/view?usp=drive_link)
+- overall_dashboard.html: [Performance Dashboard](https://drive.google.com/file/d/1B7nStKfXeyATBM3lIv858M9FaH6QBPWU/view?usp=drive_link)
+- gemini 3.1 Pro Details: [Gemini 3.1 Pro](https://drive.google.com/file/d/1STpQWocGn8XeGLHFX3AZfy2TB3Q0PsfO/view?usp=drive_link)
+- GPT 5.4 Details: [GPT 5.4](https://drive.google.com/file/d/15zamWhsI5qJMon71N0AAs2Ysrfkns-1w/view?usp=drive_link)
+- Kimi K2.5 Details: [Kimi K2.5](https://drive.google.com/file/d/1Ne7CkE6gtCNR7OQR4ZKcp7qXvNmive9Q/view?usp=drive_link)
+- MiniMax M2.7 Details: [MiniMax M2.7](https://drive.google.com/file/d/15K65XZxkUqKWj3rp-d-gZN0DEL1iu2Kf/view?usp=drive_link)
+- Claude Opus 4.6 Details: [Claude 4.6 Opus](https://drive.google.com/file/d/1qCPxy0-Z-LveiVAmPTVlrh3x2fe9qlU6/view?usp=drive_link)
 
 ## Personal OpenClaw Evaluation
 
